@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A century of building big in New York City</title>
+<meta name="description" content="Every major large-scale New York City housing project from 1898 to today, plus the proposed Sunnyside Yard development for comparison.">
+<link rel="stylesheet" href="https://use.typekit.net/qqk2vto.css">
+<style>
+:root{
+  --vc-black:#050507;--vc-white:#ffffff;--vc-cloud:#dddddd;
+  --vc-orange:#ff7c53;--vc-magenta:#e7466d;--vc-cerulean:#217ebe;--vc-indigo:#394882;
+  --vc-charcoal:#707175;--vc-cloud-50:#eeeeee;--vc-paper:#f7f7f4;
+  --vc-chartreuse:#dde44c;
+  --vc-sans:"halyard-text","Inter","Helvetica Neue",Arial,sans-serif;
+  --vc-serif:"GascogneTS","Source Serif 4",Georgia,"Times New Roman",serif;
+}
+@font-face{font-family:'GascogneTS';src:url('https://vital-city-nyc.github.io/vital-city-design-system/fonts/GascogneTS-Light.ttf') format('truetype');font-weight:300;font-style:normal;font-display:swap;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--vc-white);color:var(--vc-black);}
+body{font-family:var(--vc-sans);font-weight:300;line-height:1.5;padding:24px 16px;display:flex;justify-content:center;}
+.card{width:100%;max-width:880px;background:var(--vc-white);border:1px solid var(--vc-black);overflow:hidden;}
+body.embed{padding:0;}
+body.embed .card{border:none;max-width:none;}
+.head{padding:22px 24px 20px;border-bottom:1px solid var(--vc-cloud);}
+.kicker{font-weight:700;font-size:.64rem;letter-spacing:.16em;text-transform:uppercase;color:var(--vc-charcoal);margin-bottom:8px;}
+.head h1{font-weight:700;font-size:1.7rem;line-height:1.15;letter-spacing:-.005em;margin-bottom:8px;}
+.head .dek{font-size:.92rem;max-width:62ch;}
+.head .dek b{font-weight:700;}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);background:var(--vc-paper);border-bottom:1px solid var(--vc-cloud);}
+.stat{padding:14px 16px 12px;border-right:1px solid var(--vc-cloud);}
+.stat:last-child{border-right:none;}
+.stat .num{font-family:var(--vc-serif);font-weight:300;font-size:1.7rem;line-height:1;margin-bottom:4px;}
+.stat .lbl{font-weight:700;font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--vc-charcoal);}
+
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid var(--vc-cloud);background:var(--vc-white);align-items:center;}
+.toolbar-label{font-weight:700;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--vc-charcoal);}
+.btn-group{display:inline-flex;border:1px solid var(--vc-black);}
+.btn-group button{font-weight:700;font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;background:var(--vc-white);color:var(--vc-black);padding:6px 12px;border:none;border-right:1px solid var(--vc-black);cursor:pointer;font-family:var(--vc-sans);}
+.btn-group button:last-child{border-right:none;}
+.btn-group button:hover{background:var(--vc-cloud-50);}
+.btn-group button.active{background:var(--vc-black);color:var(--vc-white);}
+
+.bars{padding:18px 24px 22px;border-bottom:1px solid var(--vc-cloud);display:flex;flex-direction:column;gap:8px;}
+.bar-row{display:grid;grid-template-columns:230px 1fr 90px;align-items:center;gap:12px;}
+.bar-label{font-size:.84rem;}
+.bar-label .yr{color:var(--vc-charcoal);font-size:.74rem;margin-left:4px;}
+.bar-track{position:relative;height:18px;background:var(--vc-cloud-50);}
+.bar-fill{position:absolute;left:0;top:0;height:100%;background:var(--vc-indigo);}
+.bar-fill.proposed{background:var(--vc-magenta);}
+.bar-fill.range{background:repeating-linear-gradient(45deg,var(--vc-magenta),var(--vc-magenta) 6px,#f7a3b5 6px,#f7a3b5 12px);}
+.bar-val{font-family:var(--vc-serif);font-weight:300;font-size:1rem;text-align:right;}
+.axis{display:grid;grid-template-columns:230px 1fr 90px;gap:12px;margin-top:10px;}
+.axis-ticks{display:flex;justify-content:space-between;font-weight:700;font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--vc-charcoal);grid-column:2/3;}
+
+.foot{padding:18px 24px 22px;background:var(--vc-paper);}
+.foot h3{font-weight:700;font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--vc-charcoal);margin-bottom:8px;}
+.foot p{font-size:.78rem;line-height:1.55;color:var(--vc-charcoal);max-width:72ch;margin-bottom:6px;}
+
+@media (max-width:640px){
+  .stats{grid-template-columns:1fr;}
+  .stat{border-right:none;border-bottom:1px solid var(--vc-cloud);}
+  .stat:last-child{border-bottom:none;}
+  .bar-row{grid-template-columns:1fr;gap:4px;}
+  .axis{display:none;}
+  .bar-val{text-align:left;}
+  .head h1{font-size:1.35rem;}
+}
+</style>
+<script>
+if (new URLSearchParams(location.search).get('embed') === '1') {
+  document.addEventListener('DOMContentLoaded',()=>document.body.classList.add('embed'));
+  const postHeight = () => {
+    const h = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+    parent.postMessage({ type: 'vc-embed-height', id: 'nyc-housing-at-scale', height: h }, '*');
+  };
+  window.addEventListener('load', postHeight);
+  window.addEventListener('resize', postHeight);
+  let n = 0;
+  const t = setInterval(() => { postHeight(); if (++n > 20) clearInterval(t); }, 300);
+}
+</script>
+</head>
+<body>
+<main class="card">
+
+  <header class="head">
+    <div class="kicker">When New York built big</div>
+    <h1>A century of large-scale housing</h1>
+    <p class="dek">From the philanthropic tenements of 1898 to Co-op City's 15,372 units, New York City repeatedly built housing at a scale that today's lot-by-lot development cannot match. The proposed Sunnyside Yard development — <b>12,000 to 15,000 units on 180 acres</b> — would belong on this list.</p>
+  </header>
+
+  <div class="stats">
+    <div class="stat"><div class="num">18</div><div class="lbl">Major projects since 1898</div></div>
+    <div class="stat"><div class="num">~84k</div><div class="lbl">Total units, all projects shown</div></div>
+    <div class="stat"><div class="num">180</div><div class="lbl">Acres at Sunnyside Yard</div></div>
+  </div>
+
+  <div class="toolbar">
+    <span class="toolbar-label">Sort by</span>
+    <div class="btn-group">
+      <button data-sort="units" class="active">Units</button>
+      <button data-sort="year">Year</button>
+    </div>
+  </div>
+
+  <div class="bars" id="bars"></div>
+  <div class="axis" style="padding:0 24px 14px;">
+    <div></div>
+    <div class="axis-ticks">
+      <span>0</span><span>5,000</span><span>10,000</span><span>15,000</span>
+    </div>
+    <div></div>
+  </div>
+
+  <footer class="foot">
+    <h3>Methodology</h3>
+    <p><b>Source:</b> Lynne B. Sagalyn for Vital City, "Time to Think Big Again." Project unit counts, dates, and acreage as cited by Sagalyn, cross-referenced against New York City Landmarks Preservation Commission designation reports where the project is a designated landmark or historic district. Sunnyside Yard figures from the Sunnyside Yard Master Plan (March 2020) by the New York City Economic Development Corporation.</p>
+    <p><b>How to read this:</b> Each bar shows the residential unit count for one large-scale New York City housing project. Several projects (Amalgamated Cooperative, Clinton Hill, Fresh Meadows) were built in phases over multiple decades; the date shown is the construction span Sagalyn cites. Sunnyside Yard is shown as a striped range because the master plan envisions 12,000 to 15,000 units; the bar uses the midpoint.</p>
+    <p><b>Limitations:</b> Unit counts represent originally built capacity, not present-day occupancy; some projects have been combined, demolished, or partially redeveloped. Sunnyside Gardens (1924–28, ~600 buildings on 77 acres) is omitted from this chart because Sagalyn cites it by building count rather than dwelling units, and the two are not directly comparable. The list follows Sagalyn's selection and is not exhaustive of every large New York City project.</p>
+  </footer>
+
+</main>
+
+<script>
+const projects = [
+  { name: "Avenue A (City & Suburban)", year: 1901, end: 1913, units: 1257 },
+  { name: "First Avenue Estate", year: 1898, end: 1915, units: 1059 },
+  { name: "Cosmopolitan Houses", year: 1924, units: 1500 },
+  { name: "Tudor City", year: 1927, end: 1930, units: 2800 },
+  { name: "London Terrace", year: 1929, end: 1930, units: 1665 },
+  { name: "Amalgamated Cooperative", year: 1927, end: 1970, units: 1468 },
+  { name: "Parkchester", year: 1940, end: 1941, units: 12272 },
+  { name: "Stuyvesant Town", year: 1947, end: 1949, units: 8755 },
+  { name: "Peter Cooper Village", year: 1947, end: 1949, units: 2495 },
+  { name: "Riverton Houses", year: 1947, end: 1948, units: 1232 },
+  { name: "Fordham Hill", year: 1946, end: 1950, units: 1130 },
+  { name: "Manhattan House", year: 1951, units: 582 },
+  { name: "Fresh Meadows", year: 1949, units: 3008 },
+  { name: "Clinton Hill Apartments", year: 1943, end: 1955, units: 1221 },
+  { name: "Rochdale Village", year: 1963, units: 5860 },
+  { name: "Co-op City", year: 1960, end: 1964, units: 15372 },
+  { name: "Battery Park City", year: 1979, units: 8275 },
+  { name: "Sunnyside Yard (proposed)", year: 2020, units: 13500, range: [12000, 15000], proposed: true }
+];
+
+const maxUnits = 15500;
+const container = document.getElementById('bars');
+
+function render(sort) {
+  const sorted = [...projects].sort((a,b) =>
+    sort === 'year' ? a.year - b.year : b.units - a.units
+  );
+  container.innerHTML = '';
+  sorted.forEach(p => {
+    const yr = p.end ? `${p.year}–${String(p.end).slice(2)}` : `${p.year}`;
+    const w = (p.units / maxUnits) * 100;
+    const cls = p.proposed ? (p.range ? 'range' : 'proposed') : '';
+    const valTxt = p.proposed && p.range
+      ? `${(p.range[0]/1000).toFixed(0)}–${(p.range[1]/1000).toFixed(0)}k`
+      : p.units.toLocaleString();
+    const row = document.createElement('div');
+    row.className = 'bar-row';
+    row.innerHTML = `
+      <div class="bar-label">${p.name}<span class="yr">${yr}</span></div>
+      <div class="bar-track"><div class="bar-fill ${cls}" style="width:${w}%"></div></div>
+      <div class="bar-val">${valTxt}</div>
+    `;
+    container.appendChild(row);
+  });
+}
+
+render('units');
+
+document.querySelectorAll('[data-sort]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('[data-sort]').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render(btn.dataset.sort);
+  });
+});
+</script>
+</body>
+</html>
